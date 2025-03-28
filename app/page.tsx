@@ -67,7 +67,7 @@ export default function Home() {
       {/* Header */}
       <header className="bg-blue-600 text-white p-4">
         <h1 className="text-2xl font-bold text-center">
-          Mi Tienda de Videojuegos
+          Game-Stack
         </h1>
       </header>
 
@@ -199,7 +199,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gray-200 text-center p-4">
         <p>
-          &copy; {new Date().getFullYear()} Mi Tienda de Videojuegos. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} Game-Stack. Todos los derechos reservados.
         </p>
       </footer>
     </>
