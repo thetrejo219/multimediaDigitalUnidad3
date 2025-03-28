@@ -20,7 +20,6 @@ export default function Home() {
   const [selectedType, setSelectedType] = useState("all");
   const [cartOpen, setCartOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [paymentResult, setPaymentResult] = useState<any>(null);
 
   const filteredGames = db.filter((game) =>
     game.name.toLowerCase().includes(search.toLowerCase()) &&
@@ -62,45 +61,6 @@ export default function Home() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
-  const handleCheckout = async () => {
-    const paymentData = {
-      transaction_amount: total,
-      token: "test-token",
-      description: "Compra de videojuegos",
-      installments: 1,
-      paymentMethodId: "visa",
-      issuer: "dummy",
-      payer: {
-        email: "cliente@example.com",
-        docType: "DNI",
-        docNumber: "12345678",
-      },
-    };
-
-    try {
-      const res = await fetch(`http://localhost:4000/process-payment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(paymentData),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        console.error("Payment error:", errorData);
-        alert("Error al procesar el pago");
-        return;
-      }
-
-      const data = await res.json();
-      setPaymentResult(data);
-      setCart([]);
-      alert("Pago realizado correctamente");
-    } catch (error) {
-      console.error("Error al procesar el pago", error);
-      alert("Error al procesar el pago");
-    }
-  };
 
   return (
     <>
@@ -230,22 +190,10 @@ export default function Home() {
 
             <div className="border-t pt-4 mt-4">
               <p className="font-bold text-lg">Total: ${total}</p>
-              <button
-                onClick={handleCheckout}
-                className="mt-2 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
-              >
-                Finalizar compra
-              </button>
+              {/* Funcionalidad de pago removida */}
             </div>
           </div>
         </div>
-
-        {paymentResult && (
-          <div className="mt-4 p-4 border rounded">
-            <h3 className="font-bold">Resultado del pago:</h3>
-            <pre>{JSON.stringify(paymentResult, null, 2)}</pre>
-          </div>
-        )}
       </div>
 
       {/* Footer */}
