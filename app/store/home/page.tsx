@@ -1,7 +1,10 @@
 "use client"
+import CategoryCards from '@/components/CategoryCards';
+import ImagenCarrusel from '@/components/ImagenCarrusel';
 import { db } from '@/data/informacionDB'
 import useStore from '@/src/store';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react'
 
 export default function page() {
@@ -15,62 +18,45 @@ export default function page() {
     const{cart,addToCart,increaseQuantity,decreaseQuantity,total}=useStore()
   return (
     <>
-        <div className='p-6 relative'>
+        <div className='w-full'>
+         <ImagenCarrusel/>
+        </div>
+        <div className='relative'>
             <button 
             onClick={()=>setCartOpen(!cartOpen)}
-            className='fixed top-10 right-11 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 z-50'
+            className='fixed top-30 right-11 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 z-50'
             >
                 Carrito
             </button>
         
-        <div className='mb-6'>
-            <input type="text" 
-                placeholder='Buscar videojuego'
-                className='w-full p-2 mb-2 border rounded-md'
-                value={search}
-                onChange={e=>setSearch(e.target.value)}
-            />
-            <select
-                value={selectedType}
-                onChange={e=>setSelectedType(e.target.value)}
-                className='w-full p-2 border rounded-lg'
-            >
-                <option value="">Todos los tipos</option>
-                <option value="action-adventure">Action-Adventure</option>
-                <option value="platformer">Platformer</option>
-                <option value="rpg">RPG</option>
-                <option value="shooter">Shooter</option>
-                <option value="horror">Horror</option>
-                <option value="sports">Sports</option>
-            </select>
-        </div>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {filteredGames.map(articulo=>(
-                <div
-                    key={articulo.id}
-                    className='border rounded-lg p-4 shadow-md hover:shadow-lg transition'
-                >
-                    <Image
-                        src={`/${articulo.image}`}
-                        height={200}
-                        width={200}
-                        alt={articulo.name}
-                        className='mx-auto'
+            <CategoryCards/>    
 
-                    />
-                    <h2 className='text-xl font-semibold mt-4'>{articulo.name}</h2>
-                    <p className='text-sm text-gray-600 mt-2'>{articulo.description}</p>
-                    <p className='font-bold'>{articulo.price}</p>
-                    <p className='text-sm'>Tipo: {articulo.type}</p>
-                    <button
-                        onClick={()=>addToCart(articulo)}
-                        className='mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700'
-                    >
-                        Agregar al carrito
-                    </button>
-                </div>
-            ))}
-        </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {db.map((articulo) => (
+        <Link
+          href={`/store/products/${articulo.id}`}
+          key={articulo.id}
+          className="border rounded-lg p-4 shadow-md hover:shadow-lg transition"
+        >
+          <Image
+            src={articulo.image}
+            height={200}
+            width={200}
+            alt={articulo.name}
+            className="mx-auto"
+          />
+          <h2 className="text-xl font-semibold mt-4">{articulo.name}</h2>
+          <p className="text-sm text-gray-600 mt-2">{articulo.description}</p>
+          <p className="font-bold">${articulo.price}</p>
+          <p className="text-sm">Tipo: {articulo.type}</p>
+          <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Ver Detalle
+          </button>
+        </Link>
+      ))}
+    </div>
+
         <div
             className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg border-l z-40 transition-transform duration-300 ${cartOpen?"translate-x-0":"translate-x-full"}`}
         >
