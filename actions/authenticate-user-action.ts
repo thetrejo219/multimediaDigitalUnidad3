@@ -2,7 +2,7 @@
 
 import { ErrorResponseSchema, SuccessSchema } from "@/types"
 
-type ActionStateType={
+export type ActionStateType={
     errors:string[],
     success:string
 }
