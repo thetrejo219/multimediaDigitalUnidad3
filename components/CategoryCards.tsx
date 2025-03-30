@@ -84,12 +84,7 @@ export default function CategoryCarousel() {
                 className="min-w-[250px] flex-shrink-0 bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
               >
                 <div className="flex items-center justify-center mb-4">
-                  <Image
-                    src={cat.icon}
-                    alt={cat.name}
-                    width={64}
-                    height={64}
-                  />
+                  
                 </div>
                 <h3 className="text-xl font-semibold text-center mb-2">
                   {cat.name}

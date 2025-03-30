@@ -1,3 +1,4 @@
+import z from 'zod'
 export type Item = {
     id: number;
     name: string;
@@ -9,3 +10,8 @@ export type Item = {
   
 
 export type CartItem = Item & { quantity: number };
+
+export const SuccessSchema=z.string()
+export const ErrorResponseSchema=z.object({
+    error:z.string()
+})

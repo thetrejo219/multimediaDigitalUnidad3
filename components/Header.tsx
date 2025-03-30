@@ -12,8 +12,8 @@ export default function Header() {
         <div className="flex items-center gap-10 flex-shrink-0">
           <h1 className="text-2xl font-bold">Game-Stack</h1>
           <nav className="flex gap-5">
-            <Link href="#" className="hover:text-gray-200">
-              Facturacion
+            <Link href="/store/cart" className="hover:text-gray-200">
+              Carrito
             </Link>
             <Link href="#" className="hover:text-gray-200">
               Ofertas

@@ -6,7 +6,8 @@ const ImagenCarrusel = () => {
   // Lista de imágenes para el carrusel
   const images = [
     '/Imagen1.png', // Asegúrate de tener estas imágenes en tu carpeta public
-    '/Imagen2.png'
+    '/Imagen2.png',
+    '/Imagen3.png'
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0); // Estado para el índice de la imagen actual

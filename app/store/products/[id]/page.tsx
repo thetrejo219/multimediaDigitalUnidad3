@@ -1,6 +1,9 @@
+"use client"
 // app/store/products/[id]/page.tsx
-import { db } from "@/data/informacionDB"; // Ajusta la ruta si difiere
+import { db } from "@/data/informacionDB";
 import Image from "next/image";
+import useStore from "@/src/store";
+import { useRouter } from "next/navigation";
 
 interface Params {
   params: {
@@ -8,11 +11,11 @@ interface Params {
   };
 }
 
-// Este componente es un Server Component por defecto
 export default function ProductDetailPage({ params }: Params) {
-  const productId = Number(params.id);
+  const router = useRouter();
+  const { addToCart } = useStore();
 
-  // En un proyecto real, harías fetch a una API o base de datos
+  const productId = Number(params.id);
   const product = db.find((p) => p.id === productId);
 
   if (!product) {
@@ -23,9 +26,20 @@ export default function ProductDetailPage({ params }: Params) {
     );
   }
 
+  // Botón "Comprar ahora": Agrega y redirige
+  const handleBuyNow = () => {
+    addToCart(product);
+    router.push("/store/cart");
+  };
+
+  // Botón "Añadir al carrito": Solo agrega, sin redirigir
+  const handleAddToCart = () => {
+    addToCart(product);
+    alert("Producto añadido al carrito");
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-4 flex flex-col md:flex-row gap-8">
-      {/* Sección de imágenes */}
       <div className="w-full md:w-1/2 flex justify-center">
         <div className="border p-4 rounded-md">
           <Image
@@ -37,8 +51,6 @@ export default function ProductDetailPage({ params }: Params) {
           />
         </div>
       </div>
-
-      {/* Sección de detalle */}
       <div className="w-full md:w-1/2">
         <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
         <p className="text-gray-700 mb-4">{product.description}</p>
@@ -46,21 +58,33 @@ export default function ProductDetailPage({ params }: Params) {
         <div className="text-2xl font-semibold text-green-600 mb-4">
           ${product.price}
         </div>
-
         <p className="mb-4">
           <span className="font-semibold">Tipo:</span> {product.type}
         </p>
 
-        {/* Simulando información de envío */}
         <div className="bg-gray-100 p-4 rounded-md mb-4">
           <p className="font-semibold">Envío gratis</p>
           <p className="text-sm text-gray-600">Recíbelo en 2-5 días hábiles</p>
         </div>
 
-        {/* Botón de compra */}
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-          Comprar ahora
-        </button>
+        {/* Contenedor de botones */}
+        <div className="flex gap-4">
+          {/* Botón "Añadir al carrito" */}
+          <button
+            onClick={handleAddToCart}
+            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+          >
+            Añadir al carrito
+          </button>
+
+          {/* Botón "Comprar ahora" */}
+          <button
+            onClick={handleBuyNow}
+            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+          >
+            Comprar ahora
+          </button>
+        </div>
       </div>
     </div>
   );
