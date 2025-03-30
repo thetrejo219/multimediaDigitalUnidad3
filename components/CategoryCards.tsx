@@ -1,6 +1,5 @@
 // components/CategoryCarousel.tsx
 import Link from "next/link";
-import Image from "next/image";
 import { useRef } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
