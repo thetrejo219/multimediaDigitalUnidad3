@@ -7,9 +7,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function page() {
-  const [search, setSearch] = useState("");
-  const [selectedType, setSelectedType] = useState("all");
+export default function Page() {
+  const [search] = useState("");
+  const [selectedType] = useState("all");
   const [cartOpen, setCartOpen] = useState(false);
 
   // Filtrar juegos (si lo necesitas)
