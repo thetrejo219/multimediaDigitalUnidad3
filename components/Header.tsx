@@ -19,7 +19,13 @@ export default function Header() {
       <div className="container mx-auto flex flex-col sm:flex-row sm:items-center gap-4">
         {/* Sección Izquierda: Logo y navegación */}
         <div className="flex items-center gap-10 flex-shrink-0">
-          <h1 className="text-2xl font-bold">Game-Stack</h1>
+          <h1 className="text-2xl font-bold">
+            <Link
+              href={'/'}
+            >
+              Game-Stack
+            </Link>
+          </h1>
           <nav className="flex gap-5">
             <Link href="/store/cart" className="hover:text-gray-200">
               Carrito

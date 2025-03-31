@@ -1,4 +1,5 @@
 // components/CategoryCarousel.tsx
+
 import Link from "next/link";
 import { useRef } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
@@ -7,7 +8,7 @@ interface Category {
   name: string;
   description: string;
   icon: string;
-  link: string;
+  link: string; // Debe coincidir con el "type" que uses en tu DB
 }
 
 const categories: Category[] = [
@@ -15,37 +16,39 @@ const categories: Category[] = [
     name: "Action-Adventure",
     description: "Explora mundos épicos llenos de acción y aventura.",
     icon: "/icons/action-adventure.svg",
-    link: "/categoria/action-adventure",
+    // IMPORTANTE: Asegúrate de que el slug sea "action-adventure"
+    // si en tu DB el type es "action-adventure"
+    link: "/store/search/action-adventure",
   },
   {
     name: "Platformer",
     description: "Disfruta de saltos precisos y niveles desafiantes.",
     icon: "/icons/platformer.svg",
-    link: "/categoria/platformer",
+    link: "/store/search/platformer",
   },
   {
     name: "RPG",
     description: "Sumérgete en historias envolventes y evoluciona a tu héroe.",
     icon: "/icons/rpg.svg",
-    link: "/categoria/rpg",
+    link: "/store/search/rpg",
   },
   {
     name: "Shooter",
     description: "Experimenta acción frenética y disparos intensos.",
     icon: "/icons/shooter.svg",
-    link: "/categoria/shooter",
+    link: "/store/search/shooter",
   },
   {
     name: "Horror",
     description: "Vive momentos escalofriantes y siente el terror en cada rincón.",
     icon: "/icons/horror.svg",
-    link: "/categoria/horror",
+    link: "/store/search/horror",
   },
   {
     name: "Sports",
     description: "Disfruta de la emoción del deporte en cada juego.",
     icon: "/icons/sports.svg",
-    link: "/categoria/sports",
+    link: "/store/search/sports",
   },
 ];
 
@@ -65,11 +68,9 @@ export default function CategoryCarousel() {
   };
 
   return (
-    <section className="py-8 bg-gray-100 relative ">
+    <section className="py-8 bg-gray-100 relative">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          Categorías
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Categorías</h2>
         <div className="relative">
           {/* Contenedor del carrusel */}
           <div
@@ -79,11 +80,11 @@ export default function CategoryCarousel() {
             {categories.map((cat) => (
               <Link
                 key={cat.name}
-                href={cat.link}
+                href={cat.link} // Apunta a /categoria/[slug]
                 className="min-w-[250px] flex-shrink-0 bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
               >
                 <div className="flex items-center justify-center mb-4">
-                  
+                  {/* Puedes mostrar un ícono si lo deseas */}
                 </div>
                 <h3 className="text-xl font-semibold text-center mb-2">
                   {cat.name}
