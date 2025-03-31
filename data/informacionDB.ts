@@ -1,4 +1,4 @@
-type VideojuegosDB = {
+export type VideojuegosDB = {
   id: number;
   name: string;
   image: string;
