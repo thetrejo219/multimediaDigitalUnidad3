@@ -1,6 +1,6 @@
-"use client"
-// app/store/products/[id]/page.tsx
+"use client";
 import { db } from "@/data/informacionDB";
+import { nuevosVideojuegos } from "@/data/ofertasDB";
 import Image from "next/image";
 import useStore from "@/src/store";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,9 @@ export default function ProductDetailPage({ params }: Params) {
   const { addToCart } = useStore();
 
   const productId = Number(params.id);
-  const product = db.find((p) => p.id === productId);
+  // Unificamos ambas bases de datos para buscar el producto
+  const allGames = [...db, ...nuevosVideojuegos];
+  const product = allGames.find((p) => p.id === productId);
 
   if (!product) {
     return (
@@ -64,7 +66,9 @@ export default function ProductDetailPage({ params }: Params) {
 
         <div className="bg-gray-100 p-4 rounded-md mb-4">
           <p className="font-semibold">Envío gratis</p>
-          <p className="text-sm text-gray-600">Recíbelo en 2-5 días hábiles</p>
+          <p className="text-sm text-gray-600">
+            Recíbelo en 2-5 días hábiles
+          </p>
         </div>
 
         {/* Contenedor de botones */}
